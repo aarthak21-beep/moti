@@ -70,8 +70,8 @@ export const Hero: React.FC<HeroProps> = ({
             <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white/90 px-4 py-2 text-xs sm:text-sm font-semibold text-emerald-800 shadow-sm mb-7">
               <span className="h-2 w-2 rounded-full bg-emerald-600" />
               {language === 'mr'
-                ? 'MOTI Health & Wellness मध्ये आपले स्वागत आहे'
-                : 'Welcome to MOTI Health & Wellness'}
+                ? 'MOTI HealthSphere — निरोगी आयुष्याचा रोजचा मार्गदर्शक'
+                : 'Your Daily Guide to Better Health.'}
             </div>
 
             <h1
@@ -184,7 +184,7 @@ export const Hero: React.FC<HeroProps> = ({
                 <div className="flex items-center justify-between mb-8">
                   <div>
                     <p className="text-xs font-bold uppercase tracking-widest text-emerald-700">
-                      MOTI WELLNESS
+                      MOTI HEALTHSPHERE
                     </p>
                     <h2 className="mt-1 text-xl font-extrabold text-slate-900">
                       {language === 'mr' ? 'आरोग्य प्रथम!' : 'Health Comes First!'}
