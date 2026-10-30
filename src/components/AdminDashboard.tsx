@@ -392,12 +392,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             </div>
 
             {loginError && (
-              <p className="text-xs text-rose-600 font-medium">{loginError}</p>
+              <p role="alert" className="text-xs text-rose-600 font-medium">{loginError}</p>
             )}
 
             <button
               type="submit"
-              className="w-full py-2.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-sm"
+              className="w-full min-h-11 py-2.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 text-white font-semibold text-sm"
             >
               {t.admin.loginBtn}
             </button>
@@ -427,7 +427,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           <div className="flex items-center gap-3">
             <button
               onClick={startCreate}
-              className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-700 text-white rounded-lg text-xs font-semibold"
+              className="inline-flex min-h-11 items-center gap-1.5 px-4 py-2 bg-emerald-700 text-white rounded-lg text-xs font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
             >
               <Plus className="w-4 h-4" />
               {t.admin.createArticle}
@@ -435,7 +435,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
             <button
               onClick={handleLogout}
-              className="px-3.5 py-2 border border-slate-200 text-slate-600 rounded-lg text-xs font-medium"
+              className="min-h-11 px-3.5 py-2 border border-slate-200 text-slate-600 rounded-lg text-xs font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
             >
               {t.admin.logout}
             </button>
@@ -443,7 +443,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         </div>
 
         {statusMessage && (
-          <div className="mb-6 p-4 rounded-xl bg-emerald-100 text-emerald-900 font-semibold text-xs flex items-center gap-2">
+          <div role="status" aria-live="polite" className="mb-6 p-4 rounded-xl bg-emerald-100 text-emerald-900 font-semibold text-xs flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4" />
             {statusMessage}
           </div>
@@ -458,7 +458,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
               <button
                 onClick={() => setIsEditing(false)}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700"
+                aria-label="Close article editor"\n                className="min-w-11 min-h-11 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -696,7 +696,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 <button
                   type="button"
                   onClick={() => setIsEditing(false)}
-                  className="px-4 py-2 rounded-lg border border-slate-200 text-slate-600 text-xs font-semibold"
+                  className="min-h-11 px-4 py-2 rounded-lg border border-slate-200 text-slate-600 text-xs font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                 >
                   Cancel
                 </button>
@@ -704,7 +704,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 <button
                   type="submit"
                   disabled={saving}
-                  className="inline-flex items-center gap-1.5 px-5 py-2 rounded-lg bg-emerald-700 hover:bg-emerald-800 disabled:opacity-50 text-white text-xs font-semibold"
+                  className="inline-flex min-h-11 items-center gap-1.5 px-5 py-2 rounded-lg bg-emerald-700 hover:bg-emerald-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 disabled:opacity-50 text-white text-xs font-semibold"
                 >
                   <Save className="w-4 h-4" />
                   {saving ? 'Saving...' : 'Save Article'}
