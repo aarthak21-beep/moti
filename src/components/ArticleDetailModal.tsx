@@ -8,11 +8,9 @@ import {
   Bookmark, 
   Volume2, 
   VolumeX, 
-  ShieldCheck, 
   AlertCircle, 
   Clock, 
   Calendar, 
-  UserCheck, 
   ExternalLink,
   HeartPulse,
   Sparkles
@@ -91,7 +89,7 @@ export const ArticleDetailModal: React.FC<ArticleDetailModalProps> = ({
           <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-lg border border-slate-200 text-xs">
             <button
               onClick={() => onLanguageChange('mr')}
-              className={`px-2.5 py-1 rounded font-medium transition-colors ${
+              className={`min-h-10 px-3 py-2 rounded-lg font-medium transition-colors ${
                 language === 'mr' ? 'bg-emerald-700 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -151,7 +149,7 @@ export const ArticleDetailModal: React.FC<ArticleDetailModalProps> = ({
             {/* Print Article */}
             <button
               onClick={handlePrint}
-              className="p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition-colors"
+              className="min-w-10 min-h-10 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition-colors"
               title={t.articles.print}
               aria-label={t.articles.print}
             >
@@ -161,7 +159,7 @@ export const ArticleDetailModal: React.FC<ArticleDetailModalProps> = ({
             {/* WhatsApp Share */}
             <button
               onClick={() => onShareWhatsApp(article)}
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-xs transition-colors"
+              className="min-h-10 inline-flex items-center gap-1 px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-xs transition-colors"
               title={t.articles.shareWhatsapp}
             >
               <Share2 className="w-3.5 h-3.5" />
@@ -187,7 +185,7 @@ export const ArticleDetailModal: React.FC<ArticleDetailModalProps> = ({
                 if (isPlayingAudio) window.speechSynthesis.cancel();
                 onClose();
               }}
-              className="p-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-colors ml-1"
+              className="min-w-10 min-h-10 p-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-colors ml-1"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />
@@ -212,11 +210,7 @@ export const ArticleDetailModal: React.FC<ArticleDetailModalProps> = ({
               <Calendar className="w-3.5 h-3.5 text-slate-400" />
               <span>{t.articles.publishedOn}: {article.publishDate}</span>
             </span>
-            <span aria-hidden="true">·</span>
-            <span className="inline-flex items-center gap-1 text-emerald-700 font-medium">
-              <UserCheck className="w-3.5 h-3.5" />
-              <span>{t.articles.reviewedOn}: {article.lastReviewedDate}</span>
-            </span>
+</span>
           </div>
 
           {/* Title */}
@@ -228,22 +222,6 @@ export const ArticleDetailModal: React.FC<ArticleDetailModalProps> = ({
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-emerald-50 text-emerald-900 border border-emerald-200/60 text-xs font-semibold mb-6">
             <Sparkles className="w-3.5 h-3.5 text-emerald-700" />
             <span>{t.hero.freeBadge}</span>
-          </div>
-
-          {/* Doctor Reviewer Card */}
-          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 mb-8 flex items-start gap-3">
-            <div className="w-10 h-10 rounded-full bg-emerald-700 text-white flex items-center justify-center shrink-0">
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="text-xs text-slate-500 font-medium">{t.articles.reviewer}</div>
-              <div className="text-sm font-bold text-slate-900">
-                {article.reviewer.name[language]}
-              </div>
-              <div className="text-xs text-slate-600 mt-0.5">
-                {article.reviewer.role[language]}
-              </div>
-            </div>
           </div>
 
           {/* Hero Featured Article Image */}
