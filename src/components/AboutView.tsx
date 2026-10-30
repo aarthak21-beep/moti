@@ -7,8 +7,6 @@ import {
   BookOpen, 
   Heart, 
   Users, 
-  Sparkles, 
-  Award, 
   CheckCircle2, 
   AlertTriangle 
 } from 'lucide-react';
@@ -21,10 +19,10 @@ export const AboutView: React.FC<AboutViewProps> = ({ language }) => {
   const t = translations[language];
 
   return (
-    <div className="py-12 sm:py-16 bg-white min-h-screen">
+    <div className="min-h-screen bg-gradient-to-b from-emerald-50/70 via-white to-white py-12 sm:py-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Lockup */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 sm:mb-14">
           <div className="inline-flex justify-center mb-4">
             <MotiLogo size="lg" showTagline={true} />
           </div>
@@ -37,7 +35,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ language }) => {
         </div>
 
         {/* Verbatim Mission Statement Card */}
-        <div className="p-8 rounded-2xl bg-gradient-to-br from-emerald-50 via-emerald-100/40 to-teal-50 border border-emerald-200/80 mb-12 shadow-sm">
+        <div className="relative overflow-hidden p-6 sm:p-9 rounded-3xl bg-gradient-to-br from-emerald-50 via-emerald-100/50 to-teal-50 border border-emerald-200/80 mb-12 shadow-[0_12px_40px_-24px_rgba(5,150,105,0.35)]">
           <div className="flex items-start gap-4">
             <div className="p-3 rounded-xl bg-emerald-800 text-white shrink-0 mt-1">
               <Heart className="w-6 h-6" />
@@ -50,7 +48,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ language }) => {
                 "{t.about.mainText}"
               </blockquote>
               <div className="mt-4 pt-3 border-t border-emerald-200 text-xs text-emerald-800 font-semibold">
-                MOTI Health & Wellness Education · 100% Free for India
+                MOTI HealthSphere · Free Health Education · Marathi & English
               </div>
             </div>
           </div>
@@ -63,7 +61,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ language }) => {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-xl border border-slate-200 bg-white">
+            <div className="group p-6 rounded-2xl border border-slate-200/90 bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-lg">
               <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center mb-4">
                 <ShieldCheck className="w-5 h-5" />
               </div>
@@ -117,19 +115,19 @@ export const AboutView: React.FC<AboutViewProps> = ({ language }) => {
               <div className="mt-4 pt-3 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>{language === 'mr' ? 'कोणतेही औषध स्वतःहून सुचवले जात नाही' : 'Zero unauthorized drug prescribing'}</span>
+                  <span>{language === 'mr' ? 'आरोग्यविषयक माहिती समजण्यास सोपी ठेवणे' : 'Clear, easy-to-understand health information'}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>{language === 'mr' ? 'WHO आणि ICMR मानके वापरली जातात' : 'WHO & ICMR research protocols'}</span>
+                  <span>{language === 'mr' ? 'मराठी आणि इंग्रजीमध्ये माहिती' : 'Information in Marathi and English'}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>{language === 'mr' ? 'डॉक्टरांच्या सल्ल्याशिवाय औषध बंद करू नका' : 'Prescriptions are never countermanded'}</span>
+                  <span>{language === 'mr' ? 'गरजेनुसार पात्र आरोग्यतज्ज्ञांचा सल्ला घ्या' : 'Encourages consultation with qualified professionals'}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>{language === 'mr' ? '१०८ आपत्कालीन मार्गदर्शनाचा समावेश' : '108 / 112 emergency routing'}</span>
+                  <span>{language === 'mr' ? 'आपत्कालीन परिस्थितीत त्वरित मदत घ्या' : 'Seek urgent help in an emergency'}</span>
                 </div>
               </div>
             </div>
