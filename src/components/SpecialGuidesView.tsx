@@ -77,10 +77,11 @@ export const SpecialGuidesView: React.FC<SpecialGuidesViewProps> = ({
           </p>
 
           {/* Clean Segmented Tab Controls */}
-          <div className="flex flex-wrap items-center justify-center gap-1.5 p-1.5 bg-slate-200/80 rounded-xl mt-6">
+          <div className="flex flex-wrap items-center justify-center gap-2 p-2 bg-slate-200/80 rounded-xl mt-6" role="group" aria-label={language === 'mr' ? 'आरोग्य मार्गदर्शक निवडा' : 'Choose a health guide'}>
             <button
               onClick={() => setActiveTab('diet')}
-              className={`px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-colors whitespace-nowrap ${
+              aria-pressed={activeTab === 'diet'}
+              className={`min-h-11 px-4 py-2.5 text-xs sm:text-sm font-semibold rounded-lg transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-700 focus-visible:ring-offset-2 ${
                 activeTab === 'diet' ? 'bg-white text-emerald-950 shadow-xs' : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -88,7 +89,8 @@ export const SpecialGuidesView: React.FC<SpecialGuidesViewProps> = ({
             </button>
             <button
               onClick={() => setActiveTab('yoga')}
-              className={`px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-colors whitespace-nowrap ${
+              aria-pressed={activeTab === 'yoga'}
+              className={`min-h-11 px-4 py-2.5 text-xs sm:text-sm font-semibold rounded-lg transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-700 focus-visible:ring-offset-2 ${
                 activeTab === 'yoga' ? 'bg-white text-emerald-950 shadow-xs' : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -96,7 +98,8 @@ export const SpecialGuidesView: React.FC<SpecialGuidesViewProps> = ({
             </button>
             <button
               onClick={() => setActiveTab('sleep')}
-              className={`px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-colors whitespace-nowrap ${
+              aria-pressed={activeTab === 'sleep'}
+              className={`min-h-11 px-4 py-2.5 text-xs sm:text-sm font-semibold rounded-lg transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-700 focus-visible:ring-offset-2 ${
                 activeTab === 'sleep' ? 'bg-white text-emerald-950 shadow-xs' : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -104,7 +107,8 @@ export const SpecialGuidesView: React.FC<SpecialGuidesViewProps> = ({
             </button>
             <button
               onClick={() => setActiveTab('mental')}
-              className={`px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-colors whitespace-nowrap ${
+              aria-pressed={activeTab === 'mental'}
+              className={`min-h-11 px-4 py-2.5 text-xs sm:text-sm font-semibold rounded-lg transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-700 focus-visible:ring-offset-2 ${
                 activeTab === 'mental' ? 'bg-white text-emerald-950 shadow-xs' : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -112,7 +116,8 @@ export const SpecialGuidesView: React.FC<SpecialGuidesViewProps> = ({
             </button>
             <button
               onClick={() => setActiveTab('firstAid')}
-              className={`px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-colors whitespace-nowrap ${
+              aria-pressed={activeTab === 'firstAid'}
+              className={`min-h-11 px-4 py-2.5 text-xs sm:text-sm font-semibold rounded-lg transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700 focus-visible:ring-offset-2 ${
                 activeTab === 'firstAid' ? 'bg-rose-700 text-white shadow-xs' : 'text-rose-700 hover:bg-rose-50'
               }`}
             >
