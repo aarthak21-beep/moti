@@ -341,32 +341,34 @@ export default function App() {
             />
 
             <section
-              className="py-12 sm:py-16 bg-slate-50 border-t border-slate-200"
+              className="relative overflow-hidden py-14 sm:py-20 bg-gradient-to-b from-emerald-50/60 via-white to-white border-t border-emerald-100"
               id="articles-anchor"
             >
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-teal-100/40 blur-3xl pointer-events-none" />
 
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+              <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex flex-col md:flex-row md:items-end justify-between mb-9 sm:mb-12 gap-4">
                   <div>
-                    <div className="text-xs font-semibold text-emerald-800 tracking-wider uppercase mb-1">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold tracking-wide mb-4">
+                      <BookOpen className="w-3.5 h-3.5" />
                       {language === 'mr'
-                        ? 'मोफत आरोग्य ज्ञान'
-                        : 'Free Health Knowledge'}
+                        ? 'आरोग्य ज्ञान सर्वांसाठी मोफत'
+                        : 'Free Health Education for Everyone'}
                     </div>
 
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                    <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
                       {t.articles.latest}
                     </h2>
 
-                    <p className="text-slate-600 text-sm mt-1">
+                    <p className="text-slate-600 text-sm sm:text-base mt-3 max-w-2xl leading-relaxed">
                       {t.categories.subtitle}
                     </p>
                   </div>
 
                   {(selectedCategoryId && selectedCategoryId !== 'all') ||
                   searchQuery ? (
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs text-slate-500 font-medium">
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs text-slate-500 font-semibold">
                         {filteredArticles.length} {t.search.resultsCount}
                       </span>
 
@@ -375,7 +377,7 @@ export default function App() {
                           setSelectedCategoryId('all');
                           setSearchQuery('');
                         }}
-                        className="text-xs font-semibold text-emerald-700 hover:text-emerald-900 underline"
+                        className="text-xs font-bold text-emerald-700 hover:text-emerald-900 underline underline-offset-4"
                       >
                         {t.search.clear}
                       </button>
@@ -384,7 +386,10 @@ export default function App() {
                 </div>
 
                 {loadingArticles ? (
-                  <div className="p-12 text-center bg-white rounded-2xl border border-slate-200">
+                  <div className="p-12 text-center bg-white rounded-3xl border border-emerald-100 shadow-sm">
+                    <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center mx-auto mb-4">
+                      <BookOpen className="w-6 h-6 animate-pulse" />
+                    </div>
                     <p className="text-sm text-slate-500">
                       {language === 'mr'
                         ? 'ब्लॉग लोड होत आहेत...'
@@ -392,27 +397,27 @@ export default function App() {
                     </p>
                   </div>
                 ) : articleError ? (
-                  <div className="p-12 text-center bg-white rounded-2xl border border-rose-200">
-                    <p className="text-sm text-rose-700">
-                      {articleError}
-                    </p>
+                  <div className="p-12 text-center bg-white rounded-3xl border border-rose-200 shadow-sm">
+                    <p className="text-sm text-rose-700">{articleError}</p>
 
                     <button
                       onClick={loadArticles}
-                      className="mt-4 px-4 py-2 bg-emerald-700 text-white rounded-lg text-xs"
+                      className="mt-4 px-5 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold transition-colors"
                     >
-                      पुन्हा प्रयत्न करा
+                      {language === 'mr' ? 'पुन्हा प्रयत्न करा' : 'Try Again'}
                     </button>
                   </div>
                 ) : filteredArticles.length === 0 ? (
-                  <div className="p-12 text-center bg-white rounded-2xl border border-slate-200">
-                    <Search className="w-8 h-8 text-slate-400 mx-auto mb-3" />
+                  <div className="p-10 sm:p-14 text-center bg-white rounded-3xl border border-emerald-100 shadow-sm">
+                    <div className="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center mx-auto mb-5">
+                      <Search className="w-7 h-7" />
+                    </div>
 
-                    <h3 className="text-base font-bold text-slate-900 mb-1">
+                    <h3 className="text-lg font-bold text-slate-900 mb-2">
                       {t.search.noResults}
                     </h3>
 
-                    <p className="text-xs text-slate-500 max-w-md mx-auto mb-4">
+                    <p className="text-sm text-slate-500 max-w-md mx-auto mb-5">
                       {t.search.trySearching}
                     </p>
 
@@ -421,7 +426,7 @@ export default function App() {
                         setSearchQuery('');
                         setSelectedCategoryId('all');
                       }}
-                      className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-xs font-semibold"
+                      className="px-5 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold transition-colors"
                     >
                       {t.search.clear}
                     </button>
@@ -442,41 +447,46 @@ export default function App() {
                   </div>
                 )}
 
-                <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
-                      <BookOpen className="w-6 h-6" />
+                <div className="relative mt-12 p-6 sm:p-9 rounded-3xl bg-gradient-to-br from-emerald-950 via-emerald-900 to-teal-900 text-white shadow-xl shadow-emerald-950/10 overflow-hidden">
+                  <div className="absolute -right-10 -top-10 w-48 h-48 rounded-full border border-white/10" />
+                  <div className="absolute -right-2 -top-2 w-32 h-32 rounded-full border border-white/10" />
+
+                  <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/15 text-emerald-200 flex items-center justify-center shrink-0">
+                        <BookOpen className="w-7 h-7" />
+                      </div>
+
+                      <div>
+                        <h3 className="text-lg sm:text-xl font-extrabold text-white">
+                          {language === 'mr'
+                            ? 'आरोग्य ज्ञान प्रत्येकाचा हक्क आहे'
+                            : 'Health Knowledge Is for Everyone'}
+                        </h3>
+
+                        <p className="text-xs sm:text-sm text-emerald-100/80 mt-2 max-w-xl leading-relaxed">
+                          {language === 'mr'
+                            ? 'MOTI वरील सर्व लेख मोफत उपलब्ध आहेत. कोणतीही वर्गणी नाही, कोणतीही छुपी फी नाही आणि नोंदणीचीही सक्ती नाही.'
+                            : 'All articles are free to read. No subscriptions, no paywalls, and no mandatory registration.'}
+                        </p>
+                      </div>
                     </div>
 
-                    <div>
-                      <h3 className="text-base sm:text-lg font-bold text-slate-900">
+                    <button
+                      onClick={() => {
+                        setActiveTab('guides');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-emerald-900 hover:bg-emerald-50 text-sm font-bold whitespace-nowrap shadow-lg transition-all hover:-translate-y-0.5 shrink-0"
+                    >
+                      <span>
                         {language === 'mr'
-                          ? 'आरोग्य ज्ञान प्रत्येकाचा हक्क आहे'
-                          : 'Free Health Knowledge for Everyone'}
-                      </h3>
-
-                      <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-xl">
-                        {language === 'mr'
-                          ? 'MOTI वरील सर्व लेख मोफत उपलब्ध आहेत. कोणतीही वर्गणी नाही, कोणतीही छुपी फी नाही आणि नोंदणीचीही सक्ती नाही.'
-                          : 'All articles are accessible 100% free with no subscriptions, paywalls, or mandatory registration.'}
-                      </p>
-                    </div>
+                          ? 'विशेष मार्गदर्शक पाहा'
+                          : 'Explore Special Guides'}
+                      </span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
                   </div>
-
-                  <button
-                    onClick={() => {
-                      setActiveTab('guides');
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white text-xs font-semibold whitespace-nowrap shadow-xs transition-colors shrink-0"
-                  >
-                    <span>
-                      {language === 'mr'
-                        ? 'विशेष मार्गदर्शक पाहा'
-                        : 'Explore Special Guides'}
-                    </span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
                 </div>
               </div>
             </section>
