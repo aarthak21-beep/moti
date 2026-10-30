@@ -64,7 +64,7 @@ export const DailyTipsSection: React.FC<DailyTipsSectionProps> = ({ language }) 
         </div>
 
         {/* Tip Spotlight Card */}
-        <div className="bg-emerald-900/50 border border-emerald-800 rounded-2xl p-6 sm:p-8 backdrop-blur-sm">
+        <div aria-live="polite" aria-atomic="true" className="bg-emerald-900/50 border border-emerald-800 rounded-2xl p-6 sm:p-8 backdrop-blur-sm">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div className="flex-1">
               {/* Category & Day Info */}
@@ -106,7 +106,7 @@ export const DailyTipsSection: React.FC<DailyTipsSectionProps> = ({ language }) 
             </div>
 
             {/* Carousel Navigation Arrows */}
-            <div className="flex items-center gap-3 self-end lg:self-center shrink-0">
+            <div className="flex items-center gap-3 self-end lg:self-center shrink-0" role="group" aria-label={language === 'mr' ? 'आरोग्य टिप नेव्हिगेशन' : 'Health tip navigation'}>
               <button
                 onClick={handlePrev}
                 className="min-h-11 min-w-11 p-3 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-950"
@@ -120,7 +120,7 @@ export const DailyTipsSection: React.FC<DailyTipsSectionProps> = ({ language }) 
               </span>
               <button
                 onClick={handleNext}
-                className="p-3 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-white transition-colors"
+                className="min-h-11 min-w-11 p-3 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-950"
                 aria-label={t.dailyTips.nextTip}
                 title={t.dailyTips.nextTip}
               >
