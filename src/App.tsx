@@ -1,3 +1,4 @@
+
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -29,6 +30,12 @@ import {
   BookOpen,
 } from 'lucide-react';
 
+type ArticleStatus = 'draft' | 'pending_review' | 'published';
+
+type ArticleWithStatus = Article & {
+  status?: ArticleStatus;
+};
+
 export default function App() {
   const [language, setLanguage] = useState<Language>(() => {
     const saved = localStorage.getItem('moti_language');
@@ -45,7 +52,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<string>('home');
 
   // Blogs are loaded from Supabase only.
-  const [articles, setArticles] = useState<Article[]>([]);
+  const [articles, setArticles] = useState<ArticleWithStatus[]>([]);
   const [loadingArticles, setLoadingArticles] = useState(true);
   const [articleError, setArticleError] = useState('');
 
@@ -63,8 +70,9 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [readingArticle, setReadingArticle] = useState<Article | null>(null);
 
-  // Load blogs. Supabase RLS controls which rows are visible:
-  // public visitors see published posts; admins can see all posts.
+  // Load blogs from Supabase.
+  // Public visitors see published posts.
+  // Admin users can see all posts through RLS policies.
   const loadArticles = async () => {
     setLoadingArticles(true);
     setArticleError('');
@@ -82,12 +90,13 @@ export default function App() {
       return;
     }
 
-    const loadedArticles: Article[] = (data || [])
+    const loadedArticles: ArticleWithStatus[] = (data || [])
       .filter((row: any) => row.article_data)
       .map((row: any) => ({
         ...row.article_data,
         id: row.id,
         slug: row.slug || row.article_data.slug,
+        status: row.status,
       }));
 
     setArticles(loadedArticles);
@@ -97,7 +106,6 @@ export default function App() {
   useEffect(() => {
     loadArticles();
 
-    // Reload when admin signs in or signs out.
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(() => {
@@ -116,42 +124,64 @@ export default function App() {
 
   useEffect(() => {
     localStorage.setItem('moti_font_scale', fontScale);
+
     document.body.classList.remove(
       'font-scale-sm',
       'font-scale-md',
       'font-scale-lg'
     );
+
     document.body.classList.add(`font-scale-${fontScale}`);
   }, [fontScale]);
 
-  // Save blog to Supabase.
-  // New blogs are always saved as drafts until reviewed.
+  // Save new blogs and update existing blogs in Supabase.
   const handleSaveArticle = async (updatedArticle: Article) => {
+    const articleWithStatus = updatedArticle as ArticleWithStatus;
+
+    const status: ArticleStatus =
+      articleWithStatus.status || 'draft';
+
     const articleData = {
       ...updatedArticle,
+      status,
     };
 
-    const { error } = await supabase
-      .from('posts')
-      .upsert(
-        {
-          slug: updatedArticle.slug,
-          title_en: updatedArticle.title.en,
-          title_mr: updatedArticle.title.mr,
-          excerpt_en: updatedArticle.excerpt.en,
-          excerpt_mr: updatedArticle.excerpt.mr,
-          content_en: updatedArticle.overview.en,
-          content_mr: updatedArticle.overview.mr,
-          category: updatedArticle.categoryId,
-          status: 'draft',
-          article_data: articleData,
-        },
-        { onConflict: 'slug' }
+    // Existing Supabase articles have UUID IDs.
+    // New temporary articles have IDs such as article-123456.
+    const isExistingId =
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+        updatedArticle.id
       );
 
-    if (error) {
-      console.error('Save failed:', error);
-      throw error;
+    const payload = {
+      slug: updatedArticle.slug,
+      title_en: updatedArticle.title.en,
+      title_mr: updatedArticle.title.mr,
+      excerpt_en: updatedArticle.excerpt.en,
+      excerpt_mr: updatedArticle.excerpt.mr,
+      content_en: updatedArticle.overview.en,
+      content_mr: updatedArticle.overview.mr,
+      category: updatedArticle.categoryId,
+      status,
+      article_data: articleData,
+      published_at:
+        status === 'published'
+          ? new Date().toISOString()
+          : null,
+    };
+
+    const result = isExistingId
+      ? await supabase
+          .from('posts')
+          .update(payload)
+          .eq('id', updatedArticle.id)
+      : await supabase
+          .from('posts')
+          .insert(payload);
+
+    if (result.error) {
+      console.error('Save failed:', result.error);
+      throw result.error;
     }
 
     await loadArticles();
@@ -169,18 +199,28 @@ export default function App() {
       throw error;
     }
 
-    setArticles((prev) => prev.filter((article) => article.id !== articleId));
-    setBookmarkedIds((prev) => prev.filter((id) => id !== articleId));
+    setArticles((prev) =>
+      prev.filter((article) => article.id !== articleId)
+    );
+
+    setBookmarkedIds((prev) =>
+      prev.filter((id) => id !== articleId)
+    );
   };
 
   const handleToggleBookmark = (articleId: string) => {
     setBookmarkedIds((prev) => {
       const isAlready = prev.includes(articleId);
+
       const updated = isAlready
         ? prev.filter((id) => id !== articleId)
         : [...prev, articleId];
 
-      localStorage.setItem('moti_bookmarks', JSON.stringify(updated));
+      localStorage.setItem(
+        'moti_bookmarks',
+        JSON.stringify(updated)
+      );
+
       return updated;
     });
   };
@@ -207,6 +247,7 @@ export default function App() {
     }
 
     const target = document.getElementById('articles-anchor');
+
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
     }
@@ -352,7 +393,10 @@ export default function App() {
                   </div>
                 ) : articleError ? (
                   <div className="p-12 text-center bg-white rounded-2xl border border-rose-200">
-                    <p className="text-sm text-rose-700">{articleError}</p>
+                    <p className="text-sm text-rose-700">
+                      {articleError}
+                    </p>
+
                     <button
                       onClick={loadArticles}
                       className="mt-4 px-4 py-2 bg-emerald-700 text-white rounded-lg text-xs"
@@ -475,6 +519,14 @@ export default function App() {
                   <p className="text-center py-10 text-slate-500">
                     ब्लॉग लोड होत आहेत...
                   </p>
+                ) : articleError ? (
+                  <p className="text-center py-10 text-rose-600">
+                    {articleError}
+                  </p>
+                ) : filteredArticles.length === 0 ? (
+                  <p className="text-center py-10 text-slate-500">
+                    {t.search.noResults}
+                  </p>
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filteredArticles.map((article) => (
@@ -528,10 +580,14 @@ export default function App() {
         )}
 
         {/* ABOUT */}
-        {activeTab === 'about' && <AboutView language={language} />}
+        {activeTab === 'about' && (
+          <AboutView language={language} />
+        )}
 
         {/* CONTACT */}
-        {activeTab === 'contact' && <ContactView language={language} />}
+        {activeTab === 'contact' && (
+          <ContactView language={language} />
+        )}
 
         {/* ADMIN */}
         {activeTab === 'admin' && (
