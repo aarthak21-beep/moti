@@ -351,7 +351,7 @@ export const SpecialGuidesView: React.FC<SpecialGuidesViewProps> = ({
               {/* Interactive Breathing Visual Circle */}
               <div className="flex flex-col items-center justify-center my-6">
                 <div 
-                  className={`w-48 h-48 rounded-full border-4 flex flex-col items-center justify-center transition-all duration-1000 ${
+                  role="timer" aria-live="polite" aria-atomic="true" className={`w-48 h-48 rounded-full border-4 flex flex-col items-center justify-center transition-all duration-1000 ${
                     breathingPhase === 'Inhale'
                       ? 'border-emerald-500 bg-emerald-50 scale-110 shadow-lg shadow-emerald-200'
                       : breathingPhase === 'Hold'
@@ -402,8 +402,8 @@ export const SpecialGuidesView: React.FC<SpecialGuidesViewProps> = ({
                       setBreathingPhase('Inhale');
                       setCountdown(4);
                     }}
-                    className="p-2.5 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-700"
-                    title="Reset"
+                    className="min-h-12 min-w-12 inline-flex items-center justify-center p-3 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2"
+                    aria-label={language === "mr" ? "श्वसन सराव पुन्हा सुरू करा" : "Reset breathing exercise"} title={language === "mr" ? "पुन्हा सुरू करा" : "Reset"}
                   >
                     <RotateCcw className="w-4 h-4" />
                   </button>
