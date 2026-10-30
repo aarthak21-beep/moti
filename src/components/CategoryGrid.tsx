@@ -1,22 +1,24 @@
+
 import React from 'react';
 import { Category, Language } from '../types';
 import { translations } from '../data/translations';
-import { 
-  Activity, 
-  Brain, 
-  Salad, 
-  Flower2, 
-  Dumbbell, 
-  HeartHandshake, 
-  Shield, 
-  Smile, 
-  Users, 
-  Moon, 
-  Heart, 
-  FileHeart, 
-  Crosshair, 
+import {
+  Activity,
+  Brain,
+  Salad,
+  Flower2,
+  Dumbbell,
+  HeartHandshake,
+  Shield,
+  Smile,
+  Users,
+  Moon,
+  Heart,
+  FileHeart,
+  Crosshair,
   Sparkles,
-  ArrowRight
+  ArrowRight,
+  Stethoscope,
 } from 'lucide-react';
 
 interface CategoryGridProps {
@@ -34,9 +36,9 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
 }) => {
   const t = translations[language];
 
-  // Helper to render appropriate Lucide icon safely
   const renderIcon = (iconName: string) => {
-    const props = { className: 'w-6 h-6' };
+    const props = { className: 'w-6 h-6 stroke-[1.8]' };
+
     switch (iconName) {
       case 'Activity': return <Activity {...props} />;
       case 'Brain': return <Brain {...props} />;
@@ -52,23 +54,33 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
       case 'FileHeart': return <FileHeart {...props} />;
       case 'Crosshair': return <Crosshair {...props} />;
       case 'Sparkles': return <Sparkles {...props} />;
-      default: return <Activity {...props} />;
+      default: return <Stethoscope {...props} />;
     }
   };
 
   return (
-    <section className="py-12 sm:py-16 bg-white" id="categories-section">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4 border-b border-slate-100 pb-6">
-          <div>
-            <div className="text-xs font-semibold text-emerald-700 tracking-wider uppercase mb-1">
-              {language === 'mr' ? 'आरोग्य शिक्षण ज्ञानभांडार' : 'Comprehensive Medical Education'}
+    <section
+      className="relative overflow-hidden py-14 sm:py-20 bg-gradient-to-b from-emerald-50/70 via-white to-white"
+      id="categories-section"
+    >
+      <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-emerald-100/40 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 -left-24 w-64 h-64 rounded-full bg-teal-100/30 blur-3xl pointer-events-none" />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-9 sm:mb-12 gap-5">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold tracking-wide mb-4">
+              <Activity className="w-3.5 h-3.5" />
+              {language === 'mr'
+                ? 'आरोग्याची योग्य माहिती, निरोगी आयुष्य'
+                : 'Trusted Health Knowledge for Everyday Life'}
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
               {t.categories.title}
             </h2>
-            <p className="text-slate-600 text-sm sm:text-base mt-1.5 max-w-2xl">
+
+            <p className="text-slate-600 text-sm sm:text-base mt-3 leading-relaxed">
               {t.categories.subtitle}
             </p>
           </div>
@@ -76,15 +88,15 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
           {selectedCategoryId && (
             <button
               onClick={() => onSelectCategory('all')}
-              className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 underline decoration-emerald-300 self-start md:self-auto"
+              className="inline-flex items-center gap-2 text-sm font-bold text-emerald-700 hover:text-emerald-900 transition-colors self-start md:self-auto"
             >
-              {language === 'mr' ? 'सर्व वर्ग दाखवा' : 'Show All Categories'}
+              {language === 'mr' ? 'सर्व विषय पहा' : 'View All Topics'}
+              <ArrowRight className="w-4 h-4" />
             </button>
           )}
         </div>
 
-        {/* 14 Attractive Category Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
           {categories.map((cat, idx) => {
             const isSelected = selectedCategoryId === cat.id;
 
@@ -92,59 +104,73 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
               <button
                 key={cat.id}
                 onClick={() => onSelectCategory(cat.id)}
-                className={`text-left p-5 rounded-xl border transition-all duration-200 flex flex-col justify-between group relative ${
+                aria-pressed={isSelected}
+                className={`group relative text-left min-h-[218px] p-5 sm:p-6 rounded-2xl border transition-all duration-300 flex flex-col justify-between overflow-hidden ${
                   isSelected
-                    ? 'border-emerald-600 bg-emerald-50/70 shadow-md ring-2 ring-emerald-600/20'
-                    : 'border-slate-200 hover:border-emerald-300 hover:bg-slate-50/80 bg-white'
+                    ? 'bg-emerald-50 border-emerald-500 shadow-lg shadow-emerald-900/10 ring-2 ring-emerald-500/20'
+                    : 'bg-white/90 border-slate-200/80 hover:border-emerald-300 hover:shadow-xl hover:shadow-emerald-900/5 hover:-translate-y-1'
                 }`}
               >
-                <div>
-                  {/* Icon & Index */}
-                  <div className="flex items-center justify-between mb-4">
+                <div
+                  className={`absolute top-0 right-0 w-24 h-24 rounded-bl-full transition-colors ${
+                    isSelected
+                      ? 'bg-emerald-100/80'
+                      : 'bg-slate-50 group-hover:bg-emerald-50'
+                  }`}
+                />
+
+                <div className="relative">
+                  <div className="flex items-center justify-between mb-5">
                     <div
-                      className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors ${
+                      className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 ${
                         isSelected
-                          ? 'bg-emerald-700 text-white'
-                          : 'bg-emerald-100/70 text-emerald-800 group-hover:bg-emerald-700 group-hover:text-white'
+                          ? 'bg-emerald-700 text-white shadow-md shadow-emerald-700/20'
+                          : 'bg-emerald-50 text-emerald-700 group-hover:bg-emerald-700 group-hover:text-white'
                       }`}
                     >
                       {renderIcon(cat.iconName)}
                     </div>
-                    {/* Clean unboxed numerical index */}
-                    <span className="text-xs font-mono tabular-nums text-slate-400">
+
+                    <span className="text-xs font-bold tracking-widest text-slate-300">
                       {String(idx + 1).padStart(2, '0')}
                     </span>
                   </div>
 
-                  {/* Title in selected language */}
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-emerald-800 transition-colors mb-1.5 leading-snug">
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-emerald-800 transition-colors leading-snug">
                     {cat.name[language]}
                   </h3>
 
-                  {/* Secondary language subtitle */}
-                  <div className="text-xs text-slate-500 mb-2 font-medium">
+                  <p className="text-xs font-semibold text-emerald-700/80 mt-1.5 mb-2">
                     {language === 'mr' ? cat.name.en : cat.name.mr}
-                  </div>
+                  </p>
 
-                  {/* Description */}
-                  <p className="text-xs text-slate-600 leading-relaxed line-clamp-2">
+                  <p className="text-sm text-slate-500 leading-relaxed line-clamp-2">
                     {cat.description[language]}
                   </p>
                 </div>
 
-                {/* Footer metadata: Zero-pill discipline */}
-                <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-                  <span>
+                <div className="relative mt-5 pt-4 border-t border-slate-100 flex items-center justify-between gap-2">
+                  <span className="text-xs text-slate-500 font-medium">
                     {cat.articleCount ?? 10} {t.categories.articlesCount}
                   </span>
-                  <span className="inline-flex items-center gap-1 font-semibold text-emerald-700 group-hover:translate-x-0.5 transition-transform">
-                    <span>{language === 'mr' ? 'वाचा' : 'Explore'}</span>
+
+                  <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 group-hover:gap-2.5 transition-all">
+                    {language === 'mr' ? 'विषय पहा' : 'Explore'}
                     <ArrowRight className="w-3.5 h-3.5" />
                   </span>
                 </div>
               </button>
             );
           })}
+        </div>
+
+        <div className="mt-8 flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-500">
+          <Shield className="w-4 h-4 text-emerald-600" />
+          <span>
+            {language === 'mr'
+              ? 'आरोग्यविषयक माहिती समजून घेण्यासाठी एक विश्वासार्ह व्यासपीठ'
+              : 'A learning platform to help you understand health information'}
+          </span>
         </div>
       </div>
     </section>
