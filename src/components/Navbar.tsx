@@ -122,7 +122,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => handleNavClick('home')}
             className="text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 rounded-lg whitespace-nowrap shrink-0"
           >
-            <MotiLogo size="md" showTagline={false} />
+            <MotiLogo size="md" showTagline={true} />
           </button>
 
           {/* Zone 2: 4-5 single-line nav links */}
