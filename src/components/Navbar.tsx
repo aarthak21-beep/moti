@@ -115,18 +115,18 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       {/* Main Top Bar Contract: Zone 1 (Wordmark) - Zone 2 (4-5 Nav Links) - Zone 3 (1 Action / Switcher) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-8 h-20">
+      <div className="w-full max-w-[1440px] mx-auto px-3 sm:px-5 lg:px-7">
+        <div className="flex min-h-[76px] items-center justify-between gap-3 xl:gap-5 py-2">
           {/* Zone 1: Single element brand wordmark */}
           <button
             onClick={() => handleNavClick('home')}
             className="text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 rounded-lg whitespace-nowrap shrink-0"
           >
-            <MotiLogo size="md" showTagline={true} />
+            <MotiLogo size="sm" showTagline={true} />
           </button>
 
           {/* Zone 2: 4-5 single-line nav links */}
-          <nav className="hidden lg:flex items-center gap-7 text-[15px] font-medium text-slate-700">
+          <nav className="hidden lg:flex flex-1 items-center justify-center gap-4 xl:gap-6 text-[13px] xl:text-sm font-semibold text-slate-700">
             {navLinks.map((link) => {
               const isActive = activeTab === link.id;
               return (
@@ -149,12 +149,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Zone 3: Language Switcher & Primary Action */}
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-2 xl:gap-3 shrink-0">
             {/* Bilingual Switcher (Marathi / English) */}
-            <div className="flex items-center bg-slate-100 p-1 rounded-lg border border-slate-200 text-xs font-medium">
+            <div className="flex items-center bg-slate-100 p-0.5 rounded-full border border-slate-200 text-[11px] font-semibold whitespace-nowrap">
               <button
                 onClick={() => onLanguageChange('mr')}
-                className={`px-2.5 py-1.5 rounded-md transition-all whitespace-nowrap ${
+                className={`px-2.5 py-1 rounded-full transition-all whitespace-nowrap ${
                   language === 'mr'
                     ? 'bg-emerald-700 text-white shadow-xs font-semibold'
                     : 'text-slate-600 hover:text-slate-900'
@@ -194,7 +194,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Primary Action Button */}
             <button
               onClick={() => handleNavClick('categories')}
-              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold rounded-lg shadow-xs transition-colors whitespace-nowrap shrink-0"
+              className="hidden xl:inline-flex items-center gap-1.5 px-3 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold rounded-lg shadow-xs transition-colors whitespace-nowrap shrink-0"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>{t.hero.exploreBtn}</span>
