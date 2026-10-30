@@ -153,7 +153,6 @@ export const ContactView: React.FC<ContactViewProps> = ({ language }) => {
                 </button>
               </form>
             </>
-            )}
           </div>
 
           {/* Right: Info & Social Links */}
