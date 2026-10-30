@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { supabase } from '../supabase';
 import { Article, Category, Language } from '../types';
 import { translations } from '../data/translations';
 import { 
