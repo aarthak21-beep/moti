@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabase';
 import { Article, Category, Language } from '../types';
 import { translations } from '../data/translations';
@@ -37,6 +37,28 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const [emailInput, setEmailInput] = useState('');
 const [passwordInput, setPasswordInput] = useState('');
 const [loginError, setLoginError] = useState('');
+  useEffect(() => {
+  const checkAdminSession = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+
+    if (!session) return;
+
+    const { data: admin, error } = await supabase
+      .from('admin_users')
+      .select('user_id')
+      .eq('user_id', session.user.id)
+      .maybeSingle();
+
+    if (error || !admin) {
+      await supabase.auth.signOut();
+      return;
+    }
+
+    setIsAuthenticated(true);
+  };
+
+  checkAdminSession();
+}, []);
 
   // Form State
   const [isEditing, setIsEditing] = useState(false);
@@ -327,7 +349,10 @@ const [loginError, setLoginError] = useState('');
             </button>
 
             <button
-              onClick={() => setIsAuthenticated(false)}
+              onClick={async () => {
+  await supabase.auth.signOut();
+  setIsAuthenticated(false);
+}}
               className="px-3.5 py-2 border border-slate-200 text-slate-600 hover:bg-slate-100 rounded-lg text-xs font-medium transition-colors"
             >
               {t.admin.logout}
