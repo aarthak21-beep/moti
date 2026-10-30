@@ -14,9 +14,9 @@ export const Footer: React.FC<FooterProps> = ({ language, onNavigate }) => {
   const t = translations[language];
 
   return (
-    <footer className="bg-emerald-950 text-emerald-100 border-t border-emerald-900 pt-14 pb-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-emerald-900/80">
+    <footer className="relative overflow-hidden bg-gradient-to-br from-[#052e24] via-emerald-950 to-[#064e3b] text-emerald-100 border-t border-emerald-900 pt-12 pb-8">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 pb-10 border-b border-emerald-800/80">
           
           {/* Brand Info */}
           <div className="md:col-span-5 flex flex-col items-start">
@@ -32,13 +32,13 @@ export const Footer: React.FC<FooterProps> = ({ language, onNavigate }) => {
             
             <div className="mt-4 flex items-center gap-2 text-xs text-emerald-400 font-medium">
               <ShieldCheck className="w-4 h-4 text-emerald-300" />
-              <span>{language === 'mr' ? '१००% मोफत · नो पेवॉल' : '100% Free · No Paywalls · No Ads'}</span>
+              <span>{language === 'mr' ? '१००% मोफत · नो पेवॉल' : 'Free Health Education · Marathi & English'}</span>
             </div>
           </div>
 
           {/* Quick Nav Links */}
           <div className="md:col-span-3">
-            <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-4">
+            <h3 className="text-xs font-extrabold text-white uppercase tracking-[0.16em] mb-4">
               {language === 'mr' ? 'नेव्हिगेशन' : 'Navigation'}
             </h3>
             <ul className="space-y-2.5 text-xs text-emerald-200/80">
@@ -90,7 +90,7 @@ export const Footer: React.FC<FooterProps> = ({ language, onNavigate }) => {
             <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-4">
               {language === 'mr' ? 'वैद्यकीय सुरक्षा व आणीबाणी' : 'Emergency & Safety'}
             </h3>
-            <div className="p-4 rounded-xl bg-emerald-900/60 border border-emerald-800 text-xs space-y-2">
+            <div className="p-5 rounded-2xl bg-white/[0.06] border border-emerald-700/70 text-xs space-y-3 shadow-lg shadow-black/10">
               <div className="flex items-center gap-2 text-rose-300 font-bold">
                 <PhoneCall className="w-4 h-4" />
                 <span>{language === 'mr' ? 'तातडीची रुग्णवाहिका: १०८ / ११२' : 'National Ambulance: 108 / 112'}</span>
@@ -107,7 +107,7 @@ export const Footer: React.FC<FooterProps> = ({ language, onNavigate }) => {
         {/* Bottom Bar: Copyright & Mandatory Links */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-emerald-300/70">
           <div>
-            © {new Date().getFullYear()} MOTI. {t.footer.tagline}
+            © {new Date().getFullYear()} MOTI HealthSphere. {t.footer.tagline}
           </div>
 
           <div className="flex flex-wrap items-center gap-4 sm:gap-6">
@@ -186,7 +186,7 @@ export const Footer: React.FC<FooterProps> = ({ language, onNavigate }) => {
                     1. MOTI does not diagnose diseases, prescribe medicines or dosages, or recommend stopping or altering any prescribed medication.
                   </p>
                   <p>
-                    2. All published articles are synthesized from recognized medical health authorities (WHO, NHS, ICMR, AIIMS) and reviewed by qualified healthcare professionals for educational purposes only.
+                    2. Articles are intended for general education. Please check the references provided with each article and consult a qualified healthcare professional for personal medical advice.
                   </p>
                   <p>
                     3. If you are experiencing serious or sudden symptoms (such as acute chest pain, severe shortness of breath, loss of speech or consciousness), immediately call 108 or 112 or visit the nearest emergency facility.
