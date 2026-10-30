@@ -45,12 +45,13 @@ export const DailyTipsSection: React.FC<DailyTipsSectionProps> = ({ language }) 
           </div>
 
           {/* Day Selector Buttons */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full">
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 max-w-full" role="group" aria-label={language === 'mr' ? 'दिवसानुसार आरोग्य टिप निवडा' : 'Choose a daily health tip'}>
             {DAILY_HEALTH_TIPS.map((item, idx) => (
               <button
                 key={item.id}
                 onClick={() => setSelectedTipIndex(idx)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
+                aria-pressed={selectedTipIndex === idx}
+                className={`min-h-11 min-w-11 px-4 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-950 ${
                   selectedTipIndex === idx
                     ? 'bg-emerald-600 text-white shadow-sm'
                     : 'bg-emerald-900/60 text-emerald-300 hover:bg-emerald-900 hover:text-white'
@@ -108,13 +109,13 @@ export const DailyTipsSection: React.FC<DailyTipsSectionProps> = ({ language }) 
             <div className="flex items-center gap-3 self-end lg:self-center shrink-0">
               <button
                 onClick={handlePrev}
-                className="p-3 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-white transition-colors"
+                className="min-h-11 min-w-11 p-3 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-950"
                 aria-label={t.dailyTips.prevTip}
                 title={t.dailyTips.prevTip}
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
-              <span className="text-xs font-mono tabular-nums text-emerald-300">
+              <span className="text-xs font-mono tabular-nums text-emerald-300" aria-live="polite" aria-atomic="true">
                 {selectedTipIndex + 1} / {DAILY_HEALTH_TIPS.length}
               </span>
               <button
