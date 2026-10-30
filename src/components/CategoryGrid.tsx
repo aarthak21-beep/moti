@@ -96,7 +96,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
           )}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           {categories.map((cat, idx) => {
             const isSelected = selectedCategoryId === cat.id;
 
@@ -105,10 +105,10 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
                 key={cat.id}
                 onClick={() => onSelectCategory(cat.id)}
                 aria-pressed={isSelected}
-                className={`group relative text-left min-h-[218px] p-5 sm:p-6 rounded-2xl border transition-all duration-300 flex flex-col justify-between overflow-hidden ${
+                className={`group relative text-left min-h-[205px] p-5 rounded-3xl border transition-all duration-300 flex flex-col justify-between overflow-hidden ${
                   isSelected
-                    ? 'bg-emerald-50 border-emerald-500 shadow-lg shadow-emerald-900/10 ring-2 ring-emerald-500/20'
-                    : 'bg-white/90 border-slate-200/80 hover:border-emerald-300 hover:shadow-xl hover:shadow-emerald-900/5 hover:-translate-y-1'
+                    ? 'bg-gradient-to-br from-emerald-50 to-white border-emerald-500 shadow-xl shadow-emerald-900/10 ring-2 ring-emerald-500/20'
+                    : 'bg-white border-emerald-100 shadow-sm hover:border-emerald-300 hover:shadow-xl hover:shadow-emerald-900/5 hover:-translate-y-1'
                 }`}
               >
                 <div
@@ -122,7 +122,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
                 <div className="relative">
                   <div className="flex items-center justify-between mb-5">
                     <div
-                      className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 ${
+                      className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 shadow-sm ${
                         isSelected
                           ? 'bg-emerald-700 text-white shadow-md shadow-emerald-700/20'
                           : 'bg-emerald-50 text-emerald-700 group-hover:bg-emerald-700 group-hover:text-white'
@@ -131,7 +131,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
                       {renderIcon(cat.iconName)}
                     </div>
 
-                    <span className="text-xs font-bold tracking-widest text-slate-300">
+                    <span className="text-[11px] font-extrabold tracking-[0.18em] text-emerald-200">
                       {String(idx + 1).padStart(2, '0')}
                     </span>
                   </div>
@@ -149,7 +149,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
                   </p>
                 </div>
 
-                <div className="relative mt-5 pt-4 border-t border-slate-100 flex items-center justify-between gap-2">
+                <div className="relative mt-5 pt-4 border-t border-emerald-50 flex items-center justify-between gap-2">
                   <span className="text-xs text-slate-500 font-medium">
                     {cat.articleCount ?? 10} {t.categories.articlesCount}
                   </span>
