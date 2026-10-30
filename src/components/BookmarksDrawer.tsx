@@ -25,20 +25,20 @@ export const BookmarksDrawer: React.FC<BookmarksDrawerProps> = ({
   const t = translations[language];
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden bg-slate-900/50 backdrop-blur-xs flex justify-end">
-      <div className="w-full max-w-md bg-white h-full shadow-2xl flex flex-col justify-between animate-slideLeft">
+    <div className="fixed inset-0 z-50 overflow-hidden bg-slate-900/50 backdrop-blur-xs flex justify-end" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
+      <div role="dialog" aria-modal="true" aria-labelledby="bookmarks-title" className="w-full max-w-md bg-white h-full shadow-2xl flex flex-col justify-between animate-slideLeft">
         
         {/* Header */}
         <div className="p-4 sm:p-6 border-b border-slate-200 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Bookmark className="w-5 h-5 text-emerald-700 fill-emerald-100" />
-            <h2 className="text-lg font-bold text-slate-900">
+            <h2 id="bookmarks-title" className="text-lg font-bold text-slate-900">
               {t.nav.savedArticles} ({bookmarkedArticles.length})
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+            className="min-h-11 min-w-11 p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
             aria-label="Close bookmarks"
           >
             <X className="w-5 h-5" />
@@ -67,12 +67,14 @@ export const BookmarksDrawer: React.FC<BookmarksDrawerProps> = ({
                 key={art.id}
                 className="p-3.5 rounded-xl border border-slate-200 hover:border-emerald-300 bg-white hover:bg-slate-50 transition-all flex items-start justify-between gap-3 group"
               >
-                <div
+                <button
+                  type="button"
                   onClick={() => {
                     onSelectArticle(art);
                     onClose();
                   }}
-                  className="cursor-pointer flex-1"
+                  className="text-left cursor-pointer flex-1 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
+                  aria-label={language === 'mr' ? 'लेख उघडा' : 'Open article'}
                 >
                   <div className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider mb-1">
                     {art.categoryId}
@@ -83,12 +85,14 @@ export const BookmarksDrawer: React.FC<BookmarksDrawerProps> = ({
                   <div className="text-[11px] text-slate-500 mt-1">
                     {art.readTimeMinutes} {t.articles.readTime}
                   </div>
-                </div>
+                </button>
 
                 <button
+                  type="button"
                   onClick={() => onRemoveBookmark(art.id)}
-                  className="p-1.5 text-slate-400 hover:text-rose-600 transition-colors"
-                  title="Remove"
+                  className="min-h-11 min-w-11 p-2 rounded-lg text-slate-400 hover:text-rose-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
+                  title={language === 'mr' ? 'जतन केलेला लेख काढा' : 'Remove bookmark'}
+                  aria-label={language === 'mr' ? 'जतन केलेल्या लेखांतून काढा' : 'Remove bookmark'}
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
