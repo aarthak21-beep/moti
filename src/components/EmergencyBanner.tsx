@@ -33,7 +33,7 @@ export const EmergencyBanner: React.FC<EmergencyBannerProps> = ({
         <div className="flex items-center gap-3 shrink-0">
           <a
             href="tel:108"
-            className="inline-flex items-center gap-1.5 px-3 py-1 bg-white text-red-700 hover:bg-red-50 font-bold rounded-lg shadow-xs transition-colors whitespace-nowrap text-xs"
+            className="min-h-11 inline-flex items-center gap-2 px-4 py-2 bg-white text-red-700 hover:bg-red-50 font-bold rounded-xl shadow-sm transition-colors whitespace-nowrap text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-red-700"
           >
             <PhoneCall className="w-3.5 h-3.5" />
             <span>{language === 'mr' ? '१०८ कॉल करा' : 'Call 108'}</span>
@@ -41,7 +41,7 @@ export const EmergencyBanner: React.FC<EmergencyBannerProps> = ({
 
           <button
             onClick={onViewFirstAid}
-            className="inline-flex items-center gap-1 text-white/90 hover:text-white underline decoration-white/50 text-xs font-medium transition-colors whitespace-nowrap"
+            className="min-h-11 inline-flex items-center gap-1 px-2 text-white/95 hover:text-white underline decoration-white/50 text-xs font-semibold transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-lg"
           >
             <span>{t.emergency.viewGuide}</span>
             <ChevronRight className="w-3 h-3" />
