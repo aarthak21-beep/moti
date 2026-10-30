@@ -20,7 +20,7 @@ export const Footer: React.FC<FooterProps> = ({ language, onNavigate }) => {
           
           {/* Brand Info */}
           <div className="md:col-span-5 flex flex-col items-start">
-            <MotiLogo size="lg" lightMode={true} showTagline={false} />
+            <MotiLogo size="lg" lightMode={true} showTagline={true} />
             <p className="text-emerald-300 font-semibold text-sm mt-3 tracking-wide">
               {language === 'mr' ? t.footer.marathiTagline : t.footer.tagline}
             </p>
