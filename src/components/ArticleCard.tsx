@@ -3,7 +3,7 @@ import { Article, Language } from '../types';
 import { translations } from '../data/translations';
 import { 
   Clock, 
-  ShieldCheck, 
+  BookOpen, 
   ArrowRight, 
   Bookmark, 
   Share2
@@ -67,8 +67,8 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
 
           {/* Free Educational Badge bottom-left */}
           <div className="absolute bottom-3 left-3 flex items-center gap-1 text-[11px] font-semibold text-white drop-shadow-sm">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-300" />
-            <span>{language === 'mr' ? 'वैद्यकीय तपासणी पूर्ण' : 'Doctor Reviewed'}</span>
+            <BookOpen className="w-3.5 h-3.5 text-emerald-300" />
+            <span>{language === 'mr' ? 'मोफत आरोग्य शिक्षण' : 'Free Health Education'}</span>
           </div>
         </div>
 
@@ -100,12 +100,6 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
           <p className="text-xs sm:text-sm text-slate-600 line-clamp-3 leading-relaxed mb-4">
             {article.excerpt[language]}
           </p>
-
-          {/* Doctor Reviewer Information */}
-          <div className="text-[11px] text-slate-500 border-t border-slate-100 pt-3">
-            <span className="text-slate-400">{t.articles.reviewer}: </span>
-            <span className="font-semibold text-slate-700">{article.reviewer.name[language]}</span>
-          </div>
         </div>
       </div>
 
@@ -113,7 +107,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
       <div className="p-5 pt-0 border-t border-slate-50 mt-2 flex items-center justify-between gap-2">
         <button
           onClick={() => onReadArticle(article)}
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-900 transition-colors"
+          className="min-h-11 inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-900 transition-colors"
         >
           <span>{t.articles.readMore}</span>
           <ArrowRight className="w-3.5 h-3.5" />
@@ -123,7 +117,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
           {/* Quick WhatsApp Share */}
           <button
             onClick={() => onShareWhatsApp(article)}
-            className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-medium transition-colors"
+            className="min-h-11 inline-flex items-center gap-1 px-3 py-2 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-medium transition-colors"
             title={t.articles.shareWhatsapp}
             aria-label={t.articles.shareWhatsapp}
           >
