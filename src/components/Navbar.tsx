@@ -63,7 +63,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </span>
             <span className="hidden md:inline text-emerald-600">·</span>
             <span className="hidden md:inline text-emerald-300/80">
-              100% Free · WHO & ICMR Grounded
+              {language === 'mr' ? 'मोफत आरोग्य शिक्षण · मराठी आणि इंग्रजी' : 'Free Health Education · Marathi & English'}
             </span>
           </div>
 
@@ -75,7 +75,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </span>
               <button
                 onClick={() => onFontScaleChange('sm')}
-                className={`px-1.5 py-0.5 rounded transition-colors ${
+                className={`min-w-9 min-h-9 px-1.5 py-1 rounded transition-colors ${
                   fontScale === 'sm' ? 'bg-emerald-700 text-white font-bold' : 'text-emerald-300 hover:text-white'
                 }`}
                 title="Small Font"
@@ -104,11 +104,11 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Emergency Hotline Quick Access */}
             <a
-              href="tel:108"
+              href="tel:112"
               className="inline-flex items-center gap-1 text-rose-300 hover:text-rose-200 transition-colors font-medium whitespace-nowrap"
             >
               <PhoneCall className="w-3 h-3" />
-              <span>108 / 112</span>
+              <span>112</span>
             </a>
           </div>
         </div>
@@ -179,7 +179,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Bookmarks Icon Button */}
             <button
               onClick={onOpenBookmarks}
-              className="relative p-2 rounded-lg text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 transition-colors"
+              className="relative min-w-11 min-h-11 p-2 rounded-lg text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 transition-colors"
               title={t.nav.savedArticles}
               aria-label={t.nav.savedArticles}
             >
@@ -204,7 +204,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="lg:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100"
-              aria-label="Toggle navigation menu"
+              aria-label={mobileMenuOpen ? (language === 'mr' ? 'मेनू बंद करा' : 'Close navigation menu') : (language === 'mr' ? 'मेनू उघडा' : 'Open navigation menu')}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-navigation"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -214,7 +216,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 shadow-xl">
+        <div id="mobile-navigation" className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 shadow-xl">
           <nav className="flex flex-col gap-2">
             {navLinks.map((link) => (
               <button
