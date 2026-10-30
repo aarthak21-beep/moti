@@ -1,14 +1,16 @@
+
 import React from 'react';
 import { Language } from '../types';
 import { translations } from '../data/translations';
-import { 
-  ShieldCheck, 
-  ArrowRight, 
-  BookOpen, 
-  CheckCircle2, 
-  Sparkles,
+import {
+  ArrowRight,
+  BookOpen,
+  CheckCircle2,
   Search,
-  Heart
+  HeartPulse,
+  ShieldCheck,
+  Activity,
+  Stethoscope,
 } from 'lucide-react';
 
 interface HeroProps {
@@ -30,170 +32,217 @@ export const Hero: React.FC<HeroProps> = ({
 }) => {
   const t = translations[language];
 
-  return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-emerald-50/70 via-white to-white pt-10 pb-16 lg:pt-14 lg:pb-24 border-b border-emerald-950/5">
-      {/* Subtle organic background foliage glow */}
-      <div 
-        className="absolute top-0 right-1/4 w-96 h-96 bg-emerald-100/50 rounded-full blur-3xl pointer-events-none -z-10"
-        aria-hidden="true"
-      />
-      <div 
-        className="absolute bottom-10 left-10 w-80 h-80 bg-teal-100/40 rounded-full blur-3xl pointer-events-none -z-10"
-        aria-hidden="true"
-      />
+  const features = [
+    {
+      icon: ShieldCheck,
+      mr: 'सोप्या भाषेत आरोग्य माहिती',
+      en: 'Easy-to-understand health information',
+    },
+    {
+      icon: HeartPulse,
+      mr: 'प्रतिबंधात्मक आरोग्य मार्गदर्शन',
+      en: 'Preventive health education',
+    },
+    {
+      icon: BookOpen,
+      mr: 'पूर्णपणे मोफत ज्ञान',
+      en: 'Free learning for everyone',
+    },
+  ];
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column: Proposition & Action */}
-          <div className="lg:col-span-7 flex flex-col items-start">
-            {/* Mission Statement Tag */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100/80 border border-emerald-200/60 text-emerald-900 text-xs font-semibold mb-6 shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-emerald-600 shrink-0" />
-              <span>
-                {language === 'mr' ? 'मोफत व विश्वासार्ह आरोग्य शिक्षण' : 'Free & Reliable Health Education for Everyone'}
-              </span>
+  const popularSearches = [
+    { mr: 'मधुमेह', en: 'Diabetes' },
+    { mr: 'रक्तदाब', en: 'Blood Pressure' },
+    { mr: 'पोषण', en: 'Nutrition' },
+    { mr: 'योग', en: 'Yoga' },
+    { mr: 'प्रथमोपचार', en: 'First Aid' },
+  ];
+
+  return (
+    <section className="relative overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-teal-50 py-14 sm:py-20 lg:py-24">
+      <div className="absolute -top-24 -right-24 h-80 w-80 rounded-full bg-emerald-100/60 blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-teal-100/50 blur-3xl pointer-events-none" />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+          <div className="lg:col-span-7">
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white/90 px-4 py-2 text-xs sm:text-sm font-semibold text-emerald-800 shadow-sm mb-7">
+              <span className="h-2 w-2 rounded-full bg-emerald-600" />
+              {language === 'mr'
+                ? 'MOTI Health & Wellness मध्ये आपले स्वागत आहे'
+                : 'Welcome to MOTI Health & Wellness'}
             </div>
 
-            {/* Hero Heading: Exact user requested copy */}
-            <h1 
-              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-emerald-950 leading-[1.18] mb-6"
+            <h1
+              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-slate-900 mb-6"
               style={{ textWrap: 'balance' }}
             >
               {language === 'mr' ? (
-                <span>
-                  तुमच्या आरोग्याची काळजी, आता <span className="text-emerald-700 underline decoration-emerald-300 decoration-wavy underline-offset-8">MOTI</span> सोबत!
-                </span>
+                <>
+                  निरोगी जीवनाची
+                  <span className="block text-emerald-700">
+                    सुरुवात इथूनच!
+                  </span>
+                </>
               ) : (
-                <span>
-                  Your Health. Your Wellness. Your <span className="text-emerald-700 underline decoration-emerald-300 decoration-wavy underline-offset-8">MOTI</span>.
-                </span>
+                <>
+                  Your Journey to
+                  <span className="block text-emerald-700">
+                    Better Health Starts Here.
+                  </span>
+                </>
               )}
             </h1>
 
-            {/* Subtitle: Exact user copy */}
-            <p 
-              className="text-base sm:text-lg lg:text-xl text-slate-700 leading-relaxed mb-8 max-w-2xl font-normal"
-              style={{ textWrap: 'balance' }}
-            >
-              {language === 'mr' ? t.hero.marathiSubtitle : t.hero.subtitle}
+            <p className="max-w-2xl text-base sm:text-lg leading-relaxed text-slate-600 mb-8">
+              {language === 'mr'
+                ? 'आरोग्य, पोषण, फिटनेस आणि मानसिक स्वास्थ्य याबद्दल सोप्या भाषेत माहिती मिळवा. स्वतःच्या आरोग्याबद्दल जागरूक व्हा आणि निरोगी जीवनशैलीकडे एक पाऊल टाका.'
+                : 'Explore simple, useful information about health, nutrition, fitness and mental wellbeing. Make informed choices and take a positive step towards a healthier lifestyle.'}
             </p>
 
-            {/* Instant Working Search Bar */}
-            <form 
-              onSubmit={onSearchSubmit}
-              className="w-full max-w-xl mb-8 relative"
-            >
-              <div className="relative flex items-center shadow-md rounded-xl bg-white border-2 border-emerald-600/30 focus-within:border-emerald-600 focus-within:ring-3 focus-within:ring-emerald-100 transition-all">
-                <Search className="w-5 h-5 text-emerald-700 ml-4 shrink-0" />
+            <form onSubmit={onSearchSubmit} className="max-w-xl mb-4">
+              <div className="flex items-center rounded-2xl border border-emerald-200 bg-white p-2 shadow-lg shadow-emerald-900/5 focus-within:ring-4 focus-within:ring-emerald-100">
+                <Search className="ml-3 h-5 w-5 shrink-0 text-emerald-700" />
+
                 <input
-                  type="text"
+                  type="search"
                   value={searchQuery}
                   onChange={(e) => onSearchChange(e.target.value)}
                   placeholder={t.search.placeholder}
-                  className="w-full py-3.5 pl-3 pr-28 text-slate-900 text-sm sm:text-base placeholder-slate-400 focus:outline-none bg-transparent"
+                  className="min-w-0 flex-1 bg-transparent px-3 py-3 text-sm sm:text-base text-slate-800 outline-none placeholder:text-slate-400"
+                  aria-label={language === 'mr' ? 'आरोग्य विषय शोधा' : 'Search health topics'}
                 />
+
                 <button
                   type="submit"
-                  className="absolute right-1.5 px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs sm:text-sm font-semibold rounded-lg transition-colors whitespace-nowrap shadow-xs"
+                  className="rounded-xl bg-emerald-700 px-5 py-3 text-sm font-bold text-white transition hover:bg-emerald-800"
                 >
                   {language === 'mr' ? 'शोधा' : 'Search'}
                 </button>
               </div>
-
-              {/* Instant suggested quick queries */}
-              <div className="flex items-center gap-2 mt-2.5 text-xs text-slate-500 flex-wrap">
-                <span className="font-medium text-slate-600">
-                  {language === 'mr' ? 'लोकप्रिय शोध:' : 'Trending:'}
-                </span>
-                {['मधुमेह (Diabetes)', 'उच्च रक्तदाब (BP)', 'संतुलित आहार (Diet)', 'योगासने (Yoga)', 'प्रथमोपचार (First Aid)'].map((tag) => (
-                  <button
-                    key={tag}
-                    type="button"
-                    onClick={() => {
-                      const cleanTag = tag.split(' ')[0];
-                      onSearchChange(cleanTag);
-                    }}
-                    className="hover:text-emerald-700 hover:underline transition-colors"
-                  >
-                    {tag} ·
-                  </button>
-                ))}
-              </div>
             </form>
 
-            {/* CTAs: Explore Health & Learn for Free */}
-            <div className="flex flex-wrap items-center gap-4 mb-8">
+            <div className="flex flex-wrap items-center gap-2 mb-8 text-xs">
+              <span className="font-semibold text-slate-500">
+                {language === 'mr' ? 'लोकप्रिय विषय:' : 'Popular topics:'}
+              </span>
+
+              {popularSearches.map((item) => (
+                <button
+                  key={item.en}
+                  type="button"
+                  onClick={() =>
+                    onSearchChange(language === 'mr' ? item.mr : item.en)
+                  }
+                  className="rounded-full border border-emerald-100 bg-white px-3 py-1.5 text-emerald-800 transition hover:border-emerald-400 hover:bg-emerald-50"
+                >
+                  {language === 'mr' ? item.mr : item.en}
+                </button>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap gap-3">
               <button
                 onClick={onExploreClick}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-semibold text-sm sm:text-base shadow-md shadow-emerald-950/15 transition-all hover:translate-y-[-1px] whitespace-nowrap"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-800 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-emerald-900/15 transition hover:-translate-y-0.5 hover:bg-emerald-900"
               >
-                <span>{language === 'mr' ? 'आरोग्य विषय पाहा' : 'Explore Health'}</span>
-                <ArrowRight className="w-4 h-4" />
+                {language === 'mr' ? 'आरोग्य विषय पाहा' : 'Explore Health'}
+                <ArrowRight className="h-4 w-4" />
               </button>
 
               <button
                 onClick={onFreeLearnClick}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-emerald-50 text-emerald-900 font-semibold text-sm sm:text-base border border-emerald-950/15 shadow-xs transition-all whitespace-nowrap"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-white px-6 py-3.5 text-sm font-bold text-emerald-900 transition hover:bg-emerald-50"
               >
-                <BookOpen className="w-4 h-4 text-emerald-700" />
-                <span>{language === 'mr' ? 'मोफत शिका' : 'Learn for Free'}</span>
+                <BookOpen className="h-4 w-4" />
+                {language === 'mr' ? 'मोफत वाचा' : 'Learn for Free'}
               </button>
             </div>
 
-            {/* Free Health Knowledge Guarantee Bar */}
-            <div className="pt-4 border-t border-slate-200/80 w-full flex items-center gap-6 text-xs text-slate-600">
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>{language === 'mr' ? '१००% विनामूल्य' : '100% Free Knowledge'}</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>{language === 'mr' ? 'नोंदणीची गरज नाही' : 'No Registration Needed'}</span>
-              </div>
-              <div className="hidden sm:flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>{language === 'mr' ? 'डॉक्टरांनी तपासलेले' : 'Doctor Reviewed'}</span>
-              </div>
+            <div className="mt-9 grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-emerald-100 pt-6">
+              {features.map((feature) => {
+                const Icon = feature.icon;
+
+                return (
+                  <div key={feature.en} className="flex items-center gap-2 text-xs font-medium text-slate-600">
+                    <Icon className="h-5 w-5 shrink-0 text-emerald-700" />
+                    <span>
+                      {language === 'mr' ? feature.mr : feature.en}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
-          {/* Right Column: Hero High-Impact Visual Carrier */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-emerald-950/15 border-4 border-white aspect-[4/3] lg:aspect-[5/4] bg-emerald-100">
-              <img
-                src="/src/assets/images/hero_wellness_lifestyle_1793352072364.jpg"
-                alt="Healthy multi-generational Indian family walking joyfully together with vitality"
-                className="w-full h-full object-cover"
-                referrerPolicy="no-referrer"
-              />
-              {/* Subtle gradient vignette at bottom */}
-              <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/70 via-transparent to-transparent" />
-              
-              <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-white/95 backdrop-blur-md shadow-lg border border-emerald-100">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-emerald-700 text-white flex items-center justify-center shrink-0">
-                    <Heart className="w-5 h-5 fill-white/20" />
-                  </div>
+          <div className="lg:col-span-5">
+            <div className="relative mx-auto max-w-md">
+              <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-emerald-200 to-teal-100 blur-xl opacity-60" />
+
+              <div className="relative overflow-hidden rounded-[2rem] border border-emerald-100 bg-white p-6 sm:p-8 shadow-2xl shadow-emerald-950/10">
+                <div className="flex items-center justify-between mb-8">
                   <div>
-                    <h2 className="text-sm font-bold text-slate-900 leading-tight">
-                      {language === 'mr' ? 'MOTI आरोग्य चळवळ' : 'MOTI Health Initiative'}
+                    <p className="text-xs font-bold uppercase tracking-widest text-emerald-700">
+                      MOTI WELLNESS
+                    </p>
+                    <h2 className="mt-1 text-xl font-extrabold text-slate-900">
+                      {language === 'mr' ? 'आरोग्य प्रथम!' : 'Health Comes First!'}
                     </h2>
-                    <p className="text-xs text-slate-600">
-                      {language === 'mr'
-                        ? 'महाराष्ट्रातील व भारतातील प्रत्येकासाठी सोपे व मोफत आरोग्य ज्ञान'
-                        : 'Free, reliable and easy-to-understand health education for everyone.'}
+                  </div>
+
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-800">
+                    <HeartPulse className="h-7 w-7" />
+                  </div>
+                </div>
+
+                <div className="rounded-2xl bg-gradient-to-br from-emerald-700 to-teal-800 p-6 text-white mb-5">
+                  <Activity className="h-10 w-10 mb-5 text-emerald-100" />
+                  <h3 className="text-2xl font-extrabold leading-snug">
+                    {language === 'mr'
+                      ? 'छोट्या सवयी, निरोगी आयुष्य.'
+                      : 'Small Habits. Healthier Life.'}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-emerald-50">
+                    {language === 'mr'
+                      ? 'दररोज आरोग्यासाठी एक चांगले पाऊल टाका.'
+                      : 'Take one positive step for your health every day.'}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="rounded-xl bg-emerald-50 p-4">
+                    <HeartPulse className="h-6 w-6 text-emerald-700 mb-2" />
+                    <p className="text-sm font-bold text-slate-800">
+                      {language === 'mr' ? 'हृदयाचे आरोग्य' : 'Heart Health'}
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl bg-teal-50 p-4">
+                    <Stethoscope className="h-6 w-6 text-teal-700 mb-2" />
+                    <p className="text-sm font-bold text-slate-800">
+                      {language === 'mr' ? 'आरोग्य जागरूकता' : 'Health Awareness'}
                     </p>
                   </div>
                 </div>
+
+                <div className="mt-5 flex items-center gap-2 rounded-xl border border-emerald-100 bg-white p-3 text-xs text-slate-600">
+                  <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-700" />
+                  {language === 'mr'
+                    ? 'सोपे, मोफत आणि द्विभाषिक आरोग्य शिक्षण'
+                    : 'Simple, free and bilingual health education'}
+                </div>
+              </div>
+
+              <div className="absolute -bottom-4 -right-3 hidden sm:flex items-center gap-2 rounded-xl border border-emerald-100 bg-white px-4 py-3 shadow-lg">
+                <ShieldCheck className="h-5 w-5 text-emerald-700" />
+                <span className="text-xs font-bold text-slate-700">
+                  {language === 'mr' ? 'आरोग्य जागरूकता' : 'Health Education'}
+                </span>
               </div>
             </div>
-
-            {/* Floating verification badge */}
-            <div className="absolute -top-3 -right-3 hidden sm:flex items-center gap-2 bg-white px-3.5 py-2 rounded-xl shadow-lg border border-emerald-100 text-xs font-semibold text-emerald-900">
-              <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-              <span>WHO & ICMR Standards</span>
-            </div>
           </div>
+
         </div>
       </div>
     </section>
