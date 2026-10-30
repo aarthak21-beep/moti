@@ -5,12 +5,9 @@ import { translations } from '../data/translations';
 import {
   ArrowRight,
   BookOpen,
-  CheckCircle2,
   Search,
   HeartPulse,
   ShieldCheck,
-  Activity,
-  Stethoscope,
 } from 'lucide-react';
 
 interface HeroProps {
