@@ -13,49 +13,28 @@ export const MotiLogo: React.FC<MotiLogoProps> = ({
   showTagline = false,
   lightMode = false,
 }) => {
-  const wordSizes = {
-    sm: 'text-2xl',
-    md: 'text-3xl sm:text-4xl',
-    lg: 'text-4xl sm:text-5xl',
-  };
-  const subSizes = {
-    sm: 'text-sm',
-    md: 'text-base sm:text-lg',
-    lg: 'text-lg sm:text-xl',
-  };
-  const pearlSizes = {
-    sm: 'w-6 h-7',
-    md: 'w-8 h-9',
-    lg: 'w-10 h-11',
-  };
-  const mainColor = lightMode ? 'text-white' : 'text-emerald-950';
-  const subColor = lightMode ? 'text-emerald-200' : 'text-emerald-700';
+  const sizes = {
+    sm: { word: 'text-3xl', pearl: 'h-7 w-7', brand: 'text-base', tagline: 'text-[8px]' },
+    md: { word: 'text-5xl sm:text-[54px]', pearl: 'h-10 w-10', brand: 'text-xl sm:text-2xl', tagline: 'text-[10px]' },
+    lg: { word: 'text-6xl sm:text-7xl', pearl: 'h-12 w-12', brand: 'text-2xl sm:text-3xl', tagline: 'text-xs' },
+  }[size];
+  const primary = lightMode ? 'text-white' : 'text-emerald-950';
+  const secondary = lightMode ? 'text-emerald-200' : 'text-emerald-800';
 
   return (
-    <div className={`inline-flex items-center gap-2.5 select-none ${className}`}>
-      <div className="flex flex-col leading-none">
-        <span className={`inline-flex items-center font-black tracking-[-0.075em] ${wordSizes[size]} ${mainColor}`}>
-          <span>M</span>
-          <span className={`relative inline-flex items-center justify-center ${pearlSizes[size]} mx-0.5`} aria-label="pearl">
-            <svg viewBox="0 0 44 48" className="absolute inset-0 h-full w-full" fill="none" aria-hidden="true">
-              <path d="M3 19C5 8 13 3 22 3s17 5 19 16L22 43 3 19Z" fill={lightMode ? "#10B981" : "#059669"} />
-              <path d="M3 19 11 15 15 22 22 13 29 22 33 15 41 19" stroke="#A7F3D0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M6 25 22 43 38 25" fill="#065F46" />
-              <circle cx="22" cy="25" r="10.5" fill="#F8FAFC" />
-              <circle cx="19" cy="21.5" r="3.2" fill="white" />
-              <circle cx="22" cy="25" r="10.5" stroke="#D6B875" strokeWidth="1.2" />
-            </svg>
-          </span>
-          <span>T</span><span>I</span>
+    <div className={`inline-flex items-center gap-3 select-none ${className}`}>
+      <div className={`flex items-center font-serif font-black leading-none tracking-[-0.09em] ${sizes.word} ${primary}`}>
+        <span>M</span>
+        <span className={`relative mx-[2px] inline-flex shrink-0 items-center justify-center ${sizes.pearl} rounded-[48%_48%_42%_42%] bg-gradient-to-b from-emerald-200 via-emerald-700 to-emerald-950 shadow-md`}>
+          <span className="absolute inset-x-[8%] top-[7%] h-[47%] rounded-t-full bg-gradient-to-b from-emerald-100 to-emerald-400"/>
+          <span className="absolute bottom-[7%] left-[8%] h-[34%] w-[84%] rounded-b-full bg-emerald-950/70"/>
+          <span className="relative z-10 h-[58%] w-[58%] rounded-full border-2 border-amber-100 bg-[radial-gradient(circle_at_30%_25%,#fff_0%,#fffdf5_38%,#d8c9ae_75%,#9c896e_100%)] shadow-[0_1px_8px_#fff]"/>
         </span>
-        <span className={`font-extrabold tracking-tight ${subSizes[size]} ${subColor} mt-0.5`}>
-          HealthSphere
-        </span>
-        {showTagline && (
-          <span className={`text-[9px] sm:text-[10px] font-medium tracking-wide mt-1 ${lightMode ? 'text-emerald-100/90' : 'text-slate-500'}`}>
-            Your Daily Guide to Better Health.
-          </span>
-        )}
+        <span>TI</span>
+      </div>
+      <div className="flex min-w-0 flex-col justify-center leading-none">
+        <span className={`font-extrabold tracking-tight ${sizes.brand} ${secondary}`}>HealthSphere</span>
+        {showTagline && <span className={`mt-1 whitespace-nowrap font-medium tracking-normal ${sizes.tagline} ${lightMode ? 'text-emerald-100' : 'text-slate-600'}`}>Your Daily Guide to Better Health.</span>}
       </div>
     </div>
   );
