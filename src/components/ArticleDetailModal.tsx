@@ -210,7 +210,6 @@ export const ArticleDetailModal: React.FC<ArticleDetailModalProps> = ({
               <Calendar className="w-3.5 h-3.5 text-slate-400" />
               <span>{t.articles.publishedOn}: {article.publishDate}</span>
             </span>
-</span>
           </div>
 
           {/* Title */}
