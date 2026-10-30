@@ -34,8 +34,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   language,
 }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [pinInput, setPinInput] = useState('');
-  const [pinError, setPinError] = useState(false);
+  const [emailInput, setEmailInput] = useState('');
+const [passwordInput, setPasswordInput] = useState('');
+const [loginError, setLoginError] = useState('');
 
   // Form State
   const [isEditing, setIsEditing] = useState(false);
@@ -69,16 +70,34 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
   const t = translations[language];
 
-  // Simple, secure local admin authentication
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (pinInput === 'moti2026' || pinInput === 'admin') {
-      setIsAuthenticated(true);
-      setPinError(false);
-    } else {
-      setPinError(true);
-    }
-  };
+  const handleLogin = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setLoginError('');
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: emailInput,
+    password: passwordInput,
+  });
+
+  if (error) {
+    setLoginError('Email किंवा Password चुकीचा आहे.');
+    return;
+  }
+
+  const { data: admin, error: adminError } = await supabase
+    .from('admin_users')
+    .select('user_id')
+    .eq('user_id', data.user.id)
+    .maybeSingle();
+
+  if (adminError || !admin) {
+    await supabase.auth.signOut();
+    setLoginError('या खात्याला Admin परवानगी नाही.');
+    return;
+  }
+
+  setIsAuthenticated(true);
+};
 
   const startCreate = () => {
     setEditingArticleId(null);
@@ -233,24 +252,39 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </p>
 
           <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                {t.admin.pinLabel}
-              </label>
-              <input
-                type="password"
-                value={pinInput}
-                onChange={(e) => setPinInput(e.target.value)}
-                placeholder={t.admin.pinPlaceholder}
-                className="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              />
-            </div>
+          <div>
+  <label className="block text-xs font-semibold text-slate-700 mb-1">
+    Email
+  </label>
+  <input
+    type="email"
+    required
+    value={emailInput}
+    onChange={(e) => setEmailInput(e.target.value)}
+    placeholder="Admin email"
+    className="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+  />
+</div>
 
-            {pinError && (
-              <p className="text-xs text-rose-600 font-medium">
-                {t.admin.invalidPin}
-              </p>
-            )}
+<div>
+  <label className="block text-xs font-semibold text-slate-700 mb-1">
+    Password
+  </label>
+  <input
+    type="password"
+    required
+    value={passwordInput}
+    onChange={(e) => setPasswordInput(e.target.value)}
+    placeholder="Admin password"
+    className="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+  />
+</div>
+
+            {loginError && (
+  <p className="text-xs text-rose-600 font-medium">
+    {loginError}
+  </p>
+)}
 
             <button
               type="submit"
@@ -260,10 +294,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             </button>
           </form>
 
-          <div className="mt-6 pt-4 border-t border-slate-100 text-center text-xs text-slate-500">
-            <span>Demo PIN: </span>
-            <code className="bg-slate-100 px-1.5 py-0.5 rounded text-emerald-800 font-mono font-bold">moti2026</code>
-          </div>
+         
         </div>
       </div>
     );
