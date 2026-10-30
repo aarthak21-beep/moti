@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  
+  body {
+    font-family: var(--font-sans);
+  }
+}
+
+/* Accessibility Font Size Scales */
+.font-scale-sm {
+  font-size: 14.5px;
+}
+.font-scale-md {
+  font-size: 16px;
+}
+.font-scale-lg {
+  font-size: 18px;
+}
+
+/* Senior Citizen High-Legibility Mode */
+.font-scale-lg p,
+.font-scale-lg li,
+.font-scale-lg span {
+  line-height: 1.8 !important;
+}
+
+/* Print Friendly Styles for Educational Articles */
+@media print {
+  header, footer, .no-print, button, nav, .emergency-banner {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+    color: #111827 !important;
+  }
+  .article-print-container {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+}

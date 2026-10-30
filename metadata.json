@@ -1,0 +1,6 @@
+{
+  "name": "MOTI - Health & Wellness Education",
+  "description": "Free, reliable, and easy-to-understand health and wellness education in Marathi and English. Healthy Life. Better You.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
