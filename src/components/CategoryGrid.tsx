@@ -24,6 +24,7 @@ import {
 interface CategoryGridProps {
   categories: Category[];
   selectedCategoryId: string | null;
+  articleCounts: Record<string, number>;
   onSelectCategory: (categoryId: string) => void;
   language: Language;
 }
@@ -31,6 +32,7 @@ interface CategoryGridProps {
 export const CategoryGrid: React.FC<CategoryGridProps> = ({
   categories,
   selectedCategoryId,
+  articleCounts,
   onSelectCategory,
   language,
 }) => {
@@ -151,7 +153,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
 
                 <div className="relative mt-5 pt-4 border-t border-emerald-50 flex items-center justify-between gap-2">
                   <span className="text-xs text-slate-500 font-medium">
-                    {cat.articleCount ?? 10} {t.categories.articlesCount}
+                    {articleCounts[cat.id] ?? 0} {t.categories.articlesCount}
                   </span>
 
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 group-hover:gap-2.5 transition-all">
