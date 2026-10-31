@@ -331,6 +331,10 @@ export default function App() {
 
             <CategoryGrid
               categories={CATEGORIES}
+              articleCounts={Object.fromEntries(CATEGORIES.map((category) => [
+                category.id,
+                articles.filter((article) => article.categoryId === category.id && article.status === 'published').length,
+              ]))}
               selectedCategoryId={selectedCategoryId}
               onSelectCategory={(catId) => {
                 setSelectedCategoryId(catId);
