@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aarthak21-beep.github.io/moti/sitemap.xml
